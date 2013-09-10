@@ -1,0 +1,85 @@
+\ProvidesPackage{myBeamerStyle}
+\typeout{My own custom style for Beamer slides}
+
+%%                                    %%
+%% Paquetes para incluir por defecto  %%
+%%                                    %%
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{xspace}
+
+%%                                    %%
+%% Paquetes utilizados                %%
+%%                                    %%
+\usepackage{palatino}
+% Theme
+%\usetheme{Madrid}
+\usetheme{Warsaw}
+%\usetheme[right]{Hannover}
+% \usetheme[secheader]{Boadilla}
+\useinnertheme{rounded}
+\usefonttheme{structurebold}
+
+% \usecolortheme[overlystylish]{albatross}
+% \usecolortheme{beetle}
+% \usecolortheme{crane}
+% \usecolortheme{lily}
+
+\usepackage{graphics}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{colortbl}
+\usepackage{eurosym}
+\usepackage{fancybox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% beamer options                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \beamertemplateshadingbackground{blue!10}{white!10}
+\beamertemplateballitem
+\setbeamercovered{invisible}
+% \setbeamercovered{transparent}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamertemplate{headline}{}
+\setbeamertemplate{navigation symbols}{}
+% \setbeamertemplate{footline}{}
+
+%   \setbeamertemplate{headline}
+%   {%
+%     \leavevmode%
+%     \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{section in head/foot}%
+%       \usebeamerfont{author in head/foot}\insertsectionhead
+%     \end{beamercolorbox}%
+%     \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+%       \usebeamerfont{subsection in head/foot}\insertsubsectionhead
+%     \end{beamercolorbox}}%
+%     \vskip2pt%
+%   }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Definición de comandos             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{cAzul}{rgb}{0.00,0.00,0.80}
+\definecolor{cFondo1}{rgb}{0.85,0.85,1.00}
+\definecolor{cFondo2}{rgb}{0.72,0.72,0.93}
+\definecolor{darkgreen}{rgb}{0,0.388,0}
+\definecolor{orange}{rgb}{1,0.4,0}
+\definecolor{lightblue}{rgb}{0,0.6,1}
+\definecolor{lightgreen}{rgb}{0.4,0.8,0.2}
+
+\newcommand{\vspacing}{\vspace*{5pt}}
+\newcommand{\git}{\textit{git}\xspace}
+% \newcommand{\xxx}[1]{\textit{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Definición de entornos             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{checkenv}{\only{\useitemizeitemtemplate{X}}}{}
+\newenvironment{ejemplo}{\begin{multicols}{2}}{\end{multicols}}
+\newenvironment{caja}[1]{\begin{beamerboxesrounded}[shadow=true]{#1}}
+                        {\end{beamerboxesrounded}}
+
+\endinput
