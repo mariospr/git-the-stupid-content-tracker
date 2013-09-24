@@ -63,55 +63,33 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Advantages of DVCS}
+\subsection{Advantages and disadvantages of DVCS}
 \begin{frame}
   \frametitle{\insertsubsection}
 
-  \begin{itemize}
+  \begin{columns}[t]
+    \column{.5\textwidth}
+    \textbf{Advantages}
+    \begin{itemize}
+    \item Full repository in the local machine: full history,
+      branches, work offline...
+    \item Improves the \textit{workflow} for collaborative work
+    \item Integration of changes from external sources
+    \item Makes handling different versions for a project easier
+    \item Better separation between private and public work
+    \item Implicit \textit{back-up} copies
+    \item Enables working offline
+    \end{itemize}
 
-  \item Full repository in the local machine: new possibilities: local
-    history (full log), branches management, offline \textit{commits}...
-    \vspacing
-
-  \item Improve the \textit{workflow} for collaborative work
-    \vspacing
-
-  \item Make integration of changes from external sources easier
-    \vspacing
-
-  \item Make handling different versions for a project easier
-    \vspacing
-
-  \item Better separation between private and public work
-    \vspacing
-
-  \item Implicit back-up copies
-    \vspacing
-
-  \item Don't need network connection for most of the operations
-    \vspacing
-
+    \column{.5\textwidth}
+    \textbf{Disadvantages}
+    \begin{itemize}
+    \item More complex than \textit{VCS's}. Harder learning curve
+    \item Initially cloning is slower (full repository cloning)
+    \item Full clones can require more hard disk space
   \end{itemize}
-\end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Disadvantages of DVCS}
-\begin{frame}
-  \frametitle{\insertsubsection}
-
-  \begin{itemize}
-
-  \item More complex than \textit{VCS's}. Harder learning curve
-    \vspacing
-
-  \item Initially cloning is slower (full repository cloning)
-    \vspacing
-
-  \item Full clones can require more hard disk space than a single
-    checkout of the last revision (like in SVN)\vspacing
-
-  \end{itemize}
+  \end{columns}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
