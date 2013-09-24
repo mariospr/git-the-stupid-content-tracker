@@ -203,7 +203,7 @@
     \only<2>{
     \begin{itemize}
     \item \texttt{git add -u}: Adds all the changes to the \textit{Index}
-    \item \texttt{git add $--$patch}: Interactively asks which changes
+    \item \texttt{git add \---\---patch}: Interactively asks which changes
       should go to the \textit{Index} (\textit{hunk} by \textit{hunk})
     \end{itemize}}
     \vspacing
@@ -222,14 +222,14 @@
     \begin{itemize}
     \item \texttt{git diff HEAD}: Diff between \textit{Working
         Tree} and \textit{HEAD}
-    \item \texttt{git diff $--$cached}: Diff between \textit{Index} and \textit{HEAD}
+    \item \texttt{git diff \---\---cached}: Diff between \textit{Index} and \textit{HEAD}
     \end{itemize}}
     \vspacing
 
-  \item \texttt{git show <commitID>}: Visualizes \textit{commit}
+  \item \texttt{git show <commitID>}: Visualizes details and content for \textit{commit}
     \texttt{commitID} \vspacing
 
-  \item \texttt{git log}: Shows the full (\textit{log}) from
+  \item \texttt{git log}: Shows the full \textit{log} from
     \textit{HEAD} \vspacing
   \end{itemize}
 \end{frame}
@@ -538,11 +538,12 @@ index e69de29..1802a74 100644
 
   Implementation:
   \begin{itemize}
-  \item \textbf{In other \textit{VCS's} (\textit{Subversion})}: Separate directories \vspacing
+  \item \textbf{With other \textit{VCS's} (\textit{Subversion})}: Separate directories \vspacing
 
-  \item \textbf{En \git}: An \textit{alias} to the \textit{commit}
+  \item \textbf{With \git}: An \textit{alias} to the \textit{commit}
     that will be the \textit{HEAD} for that \textit{branch}
-    (almost-zero cost, really fast).
+    (almost-zero cost, really fast). Thus, that \textit{alias} will
+    get updated every time a new commit is added.
   \end{itemize}
 \end{frame}
 
@@ -648,7 +649,7 @@ $ git branch
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Why to use branches?}
+\subsection{Why using branches?}
 
 \begin{frame}
   \frametitle{\insertsubsection}
@@ -991,65 +992,250 @@ $ git pull --rebase
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Other things...}
+\section{Tags and references}
 
-\subsection{Other interesting commands}
-\begin{frame}
+\subsection{Tags}
+\begin{frame}[fragile]
   \frametitle{\insertsubsection}
 
+  \textbf{Just a \textit{alias} for a specific \textit{commit} that
+    never changes}\\ \vspacing
   \begin{itemize}
-  \item Create a tag:\\
-    \texttt{git tag <tag-name>}
+  \item Create a tag about the current \textit{commit} (\textit{HEAD}):\\
+    \texttt{git tag [-a|-s] <tag-name>}
     \vspacing
-  \item Revert a \textit{commit} (create a new \textit{commit} on top of \textit{HEAD}):\\
-    \texttt{git revert <commitID>}
+  \item Delete a tag by name:\\
+    \texttt{git tag -d <tag-name>}
     \vspacing
-  \item Copy a specific commit on top of \textit{HEAD}:\\
-    \texttt{git cherry-pick <commitID>}
+  \item List all tags:\\
+    \texttt{git tag -l}
     \vspacing
-  \item Show the authors of the latest changes to a file:\\
-    \texttt{git blame <filepath>}
+  \item Send a local tag to a remote repository:\\
+    \texttt{git push <repo-name> <tag-name>}
     \vspacing
-  \item Apply \textit{diff} in the \textit{Working Tree} (doesn't
-    create new \textit{commits}):\\
-    \texttt{git apply <diff-file>}
-    \vspacing
-  \item Create ``full'' patches from a given point (commit):\\
-    \texttt{git format-patch <base-commitID>}
-    \vspacing
-  \item Apply ``full'' patches (keeping the author, log message...):\\
-    \texttt{git am <patchfile>}
+  \item Send all local tags to a remote repository:\\
+    \texttt{git push \---\---tags [repo-name]}
     \vspacing
   \end{itemize}
 \end{frame}
 
-\subsection{For further investigation}
 \begin{frame}
   \frametitle{\insertsubsection}
 
+  \textbf{Why using tags?}
   \begin{itemize}
-  \item Save and restore temporary changes:\\
+  \item To mark new releases of a project\\
+    \vspacing
+  \item To mark important milestones in the development process:
+    bug fixes, development of major features...\\
+    \vspacing
+  \item A tag is like a \textit{branch} in the sense that is an alias
+    for a given \textit{commit}, but different because it never changes\\
+    \vspacing
+  \item It's a common practice when managing software projects\\
+    \vspacing
+  \end{itemize}
+
+  \textbf{\textit{Lightweight tags} VS \textit{Tag objects}}
+  \begin{itemize}
+  \item \textit{Lightweight tags} (\textit{alias}): \texttt{git tag <tag-name>}\\
+    \vspacing
+  \item \textit{Tag objects}:
+    \begin{itemize}
+    \item Annotated tags: \texttt{git tag -a <tag-name>}\\
+      \vspacing
+    \item Signed tags: \texttt{git tag -s <tag-name>}\\
+      \vspacing
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\subsection{Tags - a specific example}
+\begin{frame}[fragile]
+  \frametitle{\insertsubsection}
+
+  \begin{small}
+\begin{verbatim}
+$ git tag -a TESTING_FIX  # Create new TAG
+$ git tag -l              # List existing tags
+TESTING_FIX
+
+$ git show TESTING_FIX    # Show details for the TAG
+tag TESTING_FIX
+Tagger: Mario Sanchez Prada <mario@mariospr.org>
+Date:   Sun Mar 27 18:08:58 2011 +0200
+
+Testing fix xyz
+
+commit bdd27c0e37a91c2ede4793d2a56407e7dd787f8b
+Author: Mario Sanchez Prada <mario@mariospr.org>
+Date:   Sat Mar 26 13:11:35 2011 +0100
+
+[...]
+
+$ git tag -d TESTING_FIX  # Delete TAG
+Deleted tag 'TESTING_FIX' (was a0418a0)
+\end{verbatim}
+  \end{small}
+
+\end{frame}
+
+\subsection{References}
+\begin{frame}[fragile]
+  \frametitle{\insertsubsection}
+
+  \textbf{References to specific \textit{commits}}:
+  \begin{itemize}
+  \item Current commit in the current branch: \textit{HEAD}
+  \item \textit{Hash id} for ``a random commit'': \texttt{3da14d804c3153c433d0435640bcdd06158b123e}
+  \item One branch: \textit{mybranch}
+  \item One tag: \textit{mytag}
+  \end{itemize}\vspacing
+
+  \textbf{Relative references}
+  \begin{itemize}
+  \item Browsing history backwards (parent, grandparent...)
+\begin{verbatim}
+Commit 1 position older: ref~1 o ref^
+Commit 3 positions older: ref~3 o ref^^^
+\end{verbatim}
+
+  \item Browsing the list of parents (interesting for \textit{merges})
+\begin{verbatim}
+ First parent for the reference: ref^
+Second parent for the reference: ref^2
+  N-th parent for the reference: ref^N
+\end{verbatim}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{\insertsubsection}
+
+\textbf{WARNING! ACHTUNG! ATENCION! ATTENZIONE!}
+\begin{verbatim}
+REF~1 == REF^  (1st ancestor == parent)
+REF~2 == REF^^ (2nd ancestor == parent of the parent)
+REF~2 != REF^2 (2nd ancestor != 2nd parent)
+\end{verbatim}
+
+\begin{center}
+  \includegraphics[width=0.9\textwidth]{images/pdf/git-references.pdf}
+\end{center}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Other things...}
+
+\subsection{Interesting commands}
+
+\begin{frame}
+  \frametitle{\insertsubsection}
+
+  \textbf{Management of the \textit{Working Tree} and the \textit{Index}}
+  \begin{itemize}
+  \item Show the state of the \textit{Working Tree} and the \textit{Index}:\\
+    \texttt{git status}
+    \vspacing
+
+  \item Add all the changes to the \textit{Index}:\\
+    \texttt{git add -u}
+    \vspacing
+
+  \item Interactively review which changes
+    should go to the \textit{Index}:\\
+    \texttt{git add \---\---patch} \vspacing
+
+  \item Differences between \textit{Working Tree} and
+    \textit{Index}:\\
+    \texttt{git diff}
+    \vspacing
+  \item Diff between \textit{Working Tree} and \textit{HEAD} \vspacing
+  \item Diff between \textit{Index} and \textit{HEAD}:\\
+    \texttt{git diff \---\---cached}
+    \vspacing
+
+  \item Save and restore state in the \textit{Working Tree} and the
+    \textit{Index}:\\
     \texttt{git stash} \& \texttt{git stash apply}
     \vspacing
-  \item Modifying \textit{HEAD}, \textit{Index} and the \textit{Working Tree}:\\
-    \texttt{git reset [ $--$soft | $--$hard ] <commitID>}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{\insertsubsection}
+
+  \textbf{Management of \textit{commits}} \\
+  \begin{itemize}
+  \item Show the full \textit{commit log} from
+    \textit{HEAD} (or \texttt{commitID}):\\
+    \texttt{git log [commitID]} \vspacing
+  \item Visualize details and content for one \textit{commit}:\\
+    \texttt{git show [commitID]} \vspacing
+  \item Show authors for the latest changes made in one filepath:\\
+    \texttt{git blame <filepath>}
     \vspacing
-  \item Manually rewriting the past (\textit{commits}):\\
+  \item Revert a \textit{commit} (creates a new \textit{commit} on top
+    of \textit{HEAD}):\\
+    \texttt{git revert <commitID>} \vspacing
+  \item Modify the \textit{HEAD}, the \textit{Index}
+    and the \textit{Working Tree}:\\
+    \texttt{git reset [ \---\---soft | \---\---hard ] <commitID>}
+    \vspacing
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{\insertsubsection}
+
+  \textbf{\textit{Commit} ``surgery''} \\
+  \begin{itemize}
+  \item Find \textit{commits} in the current branch which have not
+    been integrated yet in another branch:\\
+    \texttt{git cherry <integration-branch>}
+    \vspacing
+  \item Copy a specific commit on top of \textit{HEAD}:\\
+    \texttt{git cherry-pick <commitID>}
+    \vspacing
+  \item Rewrite the history of commits, manually:
     \begin{itemize}
-    \item \texttt{git rebase -i <commitID>}
-    \item \texttt{git commit $--$amend}
+      \item \texttt{git rebase -i <commitID>}
+      \item \texttt{git commit \---\---amend}
     \end{itemize}
-  \item Automatically rewriting the past:\\
+  \item Rewrite the history of commits, automatically:\\
     \texttt{git filter-branch <params>}
     \vspacing
-  \item Check out the history of git operations (and restore data):\\
-    \texttt{git reflog}
+  \item Binary search of \textit{commits}:\\
+    \texttt{git bisect <start> | <good> | <bad>}
     \vspacing
-  \item Send patches by mail:\\
+  \item Check the history of git operations:\\
+    \texttt{git reflog} \vspacing
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\insertsubsection}
+
+  \textbf{Create, apply and send patches} \\
+  \begin{itemize}
+  \item Create a \textit{diff} file from a \textit{base commit}:\\
+    \texttt{git diff <base-commitID>}
+    \vspacing
+  \item Apply a \textit{diff} file (does not create a \textit{commit}):\\
+    \texttt{git apply <diff-file>}
+    \vspacing
+  \item Create a set of ``complete'' patches from a \textit{base commit}:\\
+    \texttt{git format-patch <base-commitID>}
+    \vspacing
+  \item Apply a set of ``complete'' patches, keeping all the meta:\\
+    \texttt{git am <patchfiles>}
+    \vspacing
+  \item Send patches by email:\\
     \texttt{git send-email <email-address>}
-    \vspacing
-  \item Integration with \textit{Subversion} repositories:\\
-    \texttt{git svn <command> [ options ] [ arguments ]}
     \vspacing
   \end{itemize}
 \end{frame}
