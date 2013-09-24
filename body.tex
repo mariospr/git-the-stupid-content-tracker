@@ -490,7 +490,7 @@ index e69de29..1802a74 100644
 
 \section{Repositories and branches}
 
-\subsection{Repositories}
+\subsection{Local and remote repositories}
 
 \begin{frame}
   \frametitle{\insertsubsection}
@@ -666,7 +666,7 @@ $ git branch
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Local branches and remote branches}
+\subsection{Local and remote branches}
 
 \begin{frame}
   \frametitle{\insertsubsection}
@@ -691,34 +691,6 @@ $ git branch
 
   The \textbf{local} branches are \textit{pushed}/\textit{pulled} to/from the \textbf{remote
     repositories} throughout their associated \textbf{remote} branches.
-
-\end{frame}
-
-\subsection{Local branches and remote branches - an example}
-\begin{frame}[fragile]
-  \frametitle{\insertsubsection}
-
-  \begin{small}
-\begin{verbatim}
-$ git branch -a
-* master
-  remotes/origin/master
-  remotes/origin/other-branch
-
-$ git branch private
-
-$ git branch other-branch origin/other-branch
-Branch other-branch set up to track
-remote branch other-branch from origin.
-
-$ git branch -a
-* master
-  private
-  other-branch
-  remotes/origin/master
-  remotes/origin/other-branch
-\end{verbatim}
-  \end{small}
 
 \end{frame}
 
@@ -786,6 +758,113 @@ $ git branch -r
 \end{tiny}
     \end{block}
 \end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Local and remote branches - a specific example}
+\begin{frame}[fragile]
+  \frametitle{\insertsubsection}
+  \textbf{List remote branches and \textit{track} them locally}
+  \begin{small}
+\begin{verbatim}
+$ git branch -a       # List ALL branches (local/remote)
+* master
+  remotes/origin/master
+  remotes/origin/other-branch
+
+$ git branch private  # Create new private branch
+
+$ git branch other-branch origin/other-branch
+Branch other-branch set up to track
+remote branch other-branch from origin.
+
+$ git branch -a       # List ALL branches
+* master
+  private
+  other-branch
+  remotes/origin/master
+  remotes/origin/other-branch
+\end{verbatim}
+  \end{small}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+  \frametitle{\insertsubsection}
+
+  \textbf{Rename and remove branches}
+  \begin{small}
+\begin{verbatim}
+$ git branch -m private private-work
+$ git branch -m otherbranch other-branch
+
+$ git branch
+  master
+* private-work
+  other-branch
+
+$ git checkout master
+Switched to branch 'master'
+
+$ git branch -d private-work other-branch
+Deleted branch private-work (was 59f1309).
+Deleted branch other-branch (was e721bce).
+
+$ git branch
+* master
+\end{verbatim}
+  \end{small}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+  \frametitle{\insertsubsection}
+  \textbf{Send changes in local branches to a remote repository}
+  \begin{small}
+\begin{verbatim}
+<<< MAKE SOME CHANGES IN THE WORKING TREE >>>
+
+$ git commit -a -m "Last commit"
+[master 70f7c77] Last commit
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+$ git push
+Counting objects: 4, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 272 bytes, done.
+Total 3 (delta 1), reused 0 (delta 0)
+To ssh://foo@bar.baz/var/git/myrepo.git
+   855a39b..70f7c77  master -> master
+\end{verbatim}
+  \end{small}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[fragile]
+  \frametitle{\insertsubsection}
+  \textbf{Pull changes from a remote repository into a local branch}
+  \begin{small}
+\begin{verbatim}
+<<< WORKING TREE IS CLEAN (No changes) >>>
+
+$ git pull
+Updating 43f7dbc..70f7c77
+Fast-forward
+ body.tex               |   10 +++++++++-
+ closing.tex            |    8 ++++++++
+ cover.tex              |    8 ++++++++
+ opening.tex            |   41 ++++++++++++-----------------------------
+ toc.tex                |    8 ++++++++
+ 7 files changed, 45 insertions(+), 30 deletions(-)
+\end{verbatim}
+  \end{small}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -893,16 +972,21 @@ $ git branch -r
   \begin{small}
 \begin{verbatim}
 $ git checkout mybranch # Change to private branch
-
 $ git rebase master     # Rebase private branch
-
 $ git checkout master   # Change back to master
-
 $ git merge mybranch    # Merge changes from mybranch
-
 $ git push              # Push to remote repository
 \end{verbatim}
   \end{small}
+
+  If \texttt{git push} fails because we are not up to date, just do:
+  \begin{small}
+\begin{verbatim}
+$ git pull --rebase
+\end{verbatim}
+  \end{small}
+  This command pulls new commits from a remote branch first and then
+  put our local changes on top, all in one single step.
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
