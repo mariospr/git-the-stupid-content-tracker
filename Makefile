@@ -1,4 +1,4 @@
-doc=gititdone
+doc=20130911-gitTheStupidContentTracker
 SHELL=/bin/bash
 
 default:pdfdirect
