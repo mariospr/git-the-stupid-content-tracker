@@ -107,7 +107,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Typical workflow in git}
+\subsection{Typical workflow with git}
 \begin{frame}
   \frametitle{\insertsubsection}
   \begin{center}
@@ -165,7 +165,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Typical workflow in git - git push}
+\subsection{Typical workflow with git - git push}
 \begin{frame}
   \frametitle{\insertsubsection}
   \begin{center}
@@ -176,7 +176,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Typical workflow in git - git pull}
+\subsection{Typical workflow with git - git pull}
 \begin{frame}
   \frametitle{\insertsubsection}
   \begin{center}
@@ -187,7 +187,56 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Typical workflow in git - an example}
+\subsection{Typical workflow with git: commands}
+
+\begin{frame}
+  \frametitle{\insertsubsection}
+
+  \textbf{Basic commands\only<2>{ (extended version)}:}
+  \begin{itemize}
+
+  \item \texttt{git init}: Initializes the repository to work with
+    \git \vspacing
+
+  \item \texttt{git add}: Adds changes in the \textit{Working Tree} to
+    the\textit{Index}
+    \only<2>{
+    \begin{itemize}
+    \item \texttt{git add -u}: Adds all the changes to the \textit{Index}
+    \item \texttt{git add $--$patch}: Interactively asks which changes
+      should go to the \textit{Index} (\textit{hunk} by \textit{hunk})
+    \end{itemize}}
+    \vspacing
+
+  \item \texttt{git commit}: Makes changes in the \textit{Index}
+    permanent, creating a new commit and updating the \textit{HEAD}.
+    \only<2>{
+    \begin{itemize}
+    \item \texttt{git commit -a}: \texttt{git add -u \&\& git commit}
+    \end{itemize}}
+    \vspacing
+
+  \item \texttt{git diff}: Differences between \textit{Working Tree} and
+    \textit{Index}
+    \only<2>{
+    \begin{itemize}
+    \item \texttt{git diff HEAD}: Diff between \textit{Working
+        Tree} and \textit{HEAD}
+    \item \texttt{git diff $--$cached}: Diff between \textit{Index} and \textit{HEAD}
+    \end{itemize}}
+    \vspacing
+
+  \item \texttt{git show <commitID>}: Visualizes \textit{commit}
+    \texttt{commitID} \vspacing
+
+  \item \texttt{git log}: Shows the full (\textit{log}) from
+    \textit{HEAD} \vspacing
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Typical workflow with git - a specific example}
 \begin{frame}[fragile]
   \frametitle{\insertsubsection}
 
@@ -310,83 +359,28 @@ Date:   Mon May 3 09:30:11 2013 +0200
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Typical workflow in git (wrapping up)}
+\subsection{Typical workflow with git: commands}
 
 \begin{frame}
   \frametitle{\insertsubsection}
 
-  \textbf{Basic commands\only<2>{ (extended version)}:}
+  \textbf{Other helpful commands:}
   \begin{itemize}
-
-  \item \texttt{git init}: Initializes the repository to work with
-    \git \vspacing
-
-  \item \texttt{git add}: Adds changes in the \textit{Working Tree} to
-    the\textit{Index}
-    \only<2>{
-    \begin{itemize}
-    \item \texttt{git add -u}: Adds all the changes to the \textit{Index}
-    \item \texttt{git add --patch}: Interactively asks which changes
-      should go to the \textit{Index} (\textit{hunk} by \textit{hunk})
-    \end{itemize}}
-    \vspacing
-
-  \item \texttt{git commit}: Makes changes in the \textit{Index}
-    permanent, creating a new commit and updating the \textit{HEAD}.
-    \only<2>{
-    \begin{itemize}
-    \item \texttt{git commit -a}: \texttt{git add -u \&\& git commit}
-    \end{itemize}}
-    \vspacing
-
-  \item \texttt{git diff}: Differences between \textit{Working Tree} and
-    \textit{Index}
-    \only<2>{
-    \begin{itemize}
-    \item \texttt{git diff HEAD}: Diff between \textit{Working
-        Tree} and \textit{HEAD}
-    \item \texttt{git diff --cached}: Diff between \textit{Index} and \textit{HEAD}
-    \end{itemize}}
-    \vspacing
-
-  \item \texttt{git push}: Sends local commits to a remote repository\vspacing
-
-  \item \texttt{git pull}: Brings commits from a remote repository\vspacing
-
-  \end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Typical workflow in git (wrapping up)}
-
-\begin{frame}
-  \frametitle{\insertsubsection}
-
-  \textbf{Other (extremely useful) commands:}
-  \begin{itemize}
-
-  \item \texttt{git clone <URL>}: Clones a remote repository
-    \vspacing
-
   \item \texttt{git rm <file>}: Removes \texttt{file} and get the
     \textit{Index} ready with the changes for the next
     \textit{commit}. \vspacing
-
   \item \texttt{git mv <fileA> <fileB>}: Renames \texttt{fileA} as
     \texttt{fileB } and get the \textit{Index} ready with the changes.  \vspacing
-
-  \item \texttt{git log}: Shows the full (\textit{log}) from
-    \textit{HEAD} \vspacing
-
   \item \texttt{git status}: Shows the status of \textit{Working
       Tree} and \textit{Index} \vspacing
-
-  \item \texttt{git show <commitID>}: Visualizes \textit{commit}
-    \texttt{commitID} \vspacing
+  \item \texttt{git clone <URL>}: Clones a remote repository
+    \vspacing
+  \item \texttt{git push}: Sends local commits to a remote repository\vspacing
+  \item \texttt{git pull}: Brings commits from a remote repository\vspacing
   \end{itemize}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[fragile]
   \frametitle{\insertsubsection: git status}
@@ -954,12 +948,12 @@ $ git push              # Push to remote repository
     \texttt{git stash} \& \texttt{git stash apply}
     \vspacing
   \item Modifying \textit{HEAD}, \textit{Index} and the \textit{Working Tree}:\\
-    \texttt{git reset [ --soft | --hard ] <commitID>}
+    \texttt{git reset [ $--$soft | $--$hard ] <commitID>}
     \vspacing
   \item Manually rewriting the past (\textit{commits}):\\
     \begin{itemize}
     \item \texttt{git rebase -i <commitID>}
-    \item \texttt{git commit --amend}
+    \item \texttt{git commit $--$amend}
     \end{itemize}
   \item Automatically rewriting the past:\\
     \texttt{git filter-branch <params>}
