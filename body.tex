@@ -85,7 +85,7 @@
     \textbf{Disadvantages}
     \begin{itemize}
     \item More complex than \textit{VCS's}. Harder learning curve
-    \item Initially cloning is slower (full repository cloning)
+    \item Initially cloning is slower (not just the last commit)
     \item Full clones can require more hard disk space
   \end{itemize}
 
@@ -1161,7 +1161,7 @@ REF~2 != REF^2 (2nd ancestor != 2nd parent)
 
   \item Save and restore state in the \textit{Working Tree} and the
     \textit{Index}:\\
-    \texttt{git stash} \& \texttt{git stash apply}
+    \texttt{git stash} \& \texttt{git stash pop}
     \vspacing
   \end{itemize}
 \end{frame}
